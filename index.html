@@ -2,69 +2,44 @@
 <html>
 <head>
     <title>Connor's Website</title>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
-        body, html {
-            height: 100%;
+        body {
+            text-align: center; /* Centers the text */
             margin: 0;
-            color: #00FF00;
-            background-color: black;
-            font-family: 'VT323', monospace;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full height of the viewport */
+            font-family: Menlo , monospace; /* Optional: sets a default font */
+            background-color: antiquewhite;
         }
-
-        /* Animated background styles */
-        @keyframes matrix {
-            from { transform: translateY(0); }
-            to { transform: translateY(-100%); }
+        .container {
+            max-width: 800px; /* Adjusts the max width of the content */
         }
-
-        .matrix-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            overflow: hidden;
-            z-index: -1;
-        }
-
-        .matrix-background::after {
-            content: '01010101...'; /* Add more characters to fill the screen */
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            white-space: nowrap;
-            line-height: 1.5em;
-            animation: matrix 10s linear infinite;
-        }
-
-        /* Additional styling for your text elements */
-        .centered-text {
-            text-align: center;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1;
-        }
-
-        .third-text:hover {
-            color: #FF0000; /* Change color on hover */
-        }
-
-        /* Add more custom styles as needed */
     </style>
 </head>
 <body>
-    <div class="matrix-background"></div> <!-- Animated background -->
-    <div class="centered-text">
-        <div class="large-text" style="font-size: 7em;">Welcome to Connor's Website</div>
-        <div class="small-text">------------------</div>
-        <div class="another-text">If you are are reading this, a major milestone has been achieved!</div>  
-        <div class="small-text">-------------------</div>          
-        <div class="third-text">stay tuned for more updates</div>
-    </div>
+    <div class="container">
+        <h1 style="font-size: 5em;">Welcome to Connor’s Website</h1>
+        <p style="color: green; font-style: italic;">If you are reading this, a major milestone has been achieved!</p>
+        <h2 style="font-size: 3em">My Mission</h2>
+        <p>Establish a foundational understanding of front-end and back-end systems, enabling me to create, develop, and host cool, fun, and useful applications entirely on my own.</p>
+        <div class="container">
+            <h2 style="font-size: 3em">My Method</h2>
+            <p> This project is intended to expose me to the basics of full-stack development. This entire website, the back-end infrastructure, and future applications will be designed and coded by myself.</p>
+            <h3>Phase 1: Learning my ABC's</h3>
+            <p>Objective: Build the foundation for future development</p>
+            <div style="text-align: left; margin: 0 auto; max-width: 800px;">
+                <ul>
+                    <li style="color: green">Goal #1: Develop my own website</li>
+                    <li>Goal #2: Create a calculator application</li>
+                    <li>Goal #3: Deploy the calculator application on my website</li>
+                </ul>
+            </div>
+            <p>Stay tuned for more details and updates as I move forward on this Journey!</p>
+            <p>You live and you learn. If you’re not learning, you’re not living.</p>
+        </div>
+    
 </body>
 </html>
