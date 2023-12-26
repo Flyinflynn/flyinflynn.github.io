@@ -13,16 +13,16 @@ document.addEventListener('DOMContentLoaded', function() {
         y: 50,
         width: 20,
         height: 20,
-        speed: 5
+        speed: 25
     };
 
     // Define the maze structure
     const maze = [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1],
+        [1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function movePlayer(direction) {
         let newX = player.x;
         let newY = player.y;
+        let moveDistance = player.speed * 10; // Move twice the distance
 
         switch(direction) {
             case 'ArrowUp': newY -= player.speed; break;
@@ -83,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (canMove(newX, newY)) {
             player.x = newX;
             player.y = newY;
+            let moveDistance = player.speed * 1; // Move twice the distance
         }
     }
 
