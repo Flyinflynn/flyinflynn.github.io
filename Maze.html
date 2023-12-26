@@ -7,17 +7,52 @@
         #gameCanvas {
             border: 1px solid black; /* Adding a border for visibility */
             display: block; /* Ensures no extra space around the canvas */
-            margin: 0 auto; /* Centers the canvas horizontally */
+            margin: 20px auto; /* Centers the canvas horizontally and adds vertical space */
+        }
+
+        /* Styling for the control buttons */
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .horizontal-buttons {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .button-container button {
+            font-size: 24px; /* Adjust size as needed */
+            padding: 10px 20px; /* Adjust padding as needed */
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: 1px solid #000;
+            background-color: #fff;
+        }
+
+        #up, #down {
+            display: block;
+            margin: 10px auto; /* Centers buttons vertically with space */
+        }
+
+        #left, #right {
+            display: inline-block; /* Aligns horizontally */
+            margin: 0 5px;
         }
     </style>
 </head>
 <body>
     <canvas id="gameCanvas" width="800" height="600"></canvas>
     
-    <button id="up">Up</button>
-    <button id="down">Down</button>
-    <button id="left">Left</button>
-    <button id="right">Right</button>
+    <div class="button-container">
+        <button id="up">&#8593; Up</button>
+        <div class="horizontal-buttons">
+            <button id="left">&#8592; Left</button>
+            <button id="right">&#8594; Right</button>
+        </div>
+        <button id="down">&#8595; Down</button>
+    </div>
 
     <!-- Including the JavaScript file -->
     <script src="Maze_Game.js"></script>
