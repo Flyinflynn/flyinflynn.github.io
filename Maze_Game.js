@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         y: 50,
         width: 15,
         height: 15,
-        speed: 15
+        speed: 10
     };
 
     // Define the maze structure
