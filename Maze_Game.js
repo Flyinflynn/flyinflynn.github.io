@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         y: 50,
         width: 15,
         height: 15,
-        speed: 10
+        speed: 15
     };
 
     // Define the maze structure
@@ -24,9 +24,9 @@ document.addEventListener('DOMContentLoaded', function() {
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         // ... more rows of the maze ...
         [1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
@@ -59,7 +59,30 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
+    let movingDirection = null;
+    let isMoving = false;
 
+    // Define the startMoving, continueMoving, and stopMoving functions here
+    function startMoving(direction) {
+        if (!isMoving) {
+            isMoving = true;
+            movingDirection = direction;
+            continueMoving();
+        } 
+    }
+
+    function continueMoving() {
+        // ... implementation ...
+        if (isMoving) {
+            movePlayer(movingDirection);
+            requestAnimationFrame(continueMoving);
+        }
+    }
+
+    function stopMoving() {
+        // ... implementation ...
+        isMoving = false;
+    }
     // Check if a move is allowed
     function canMove(x, y) {
         const col = Math.floor(x / tileSize);
@@ -71,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function movePlayer(direction) {
         let newX = player.x;
         let newY = player.y;
-        let moveDistance = player.speed * 10; // Move twice the distance
+        let moveDistance = player.speed * 1; // Move twice the distance
 
         switch(direction) {
             case 'ArrowUp': newY -= player.speed; break;
@@ -84,7 +107,6 @@ document.addEventListener('DOMContentLoaded', function() {
         if (canMove(newX, newY)) {
             player.x = newX;
             player.y = newY;
-            let moveDistance = player.speed * 1; // Move twice the distance
         }
     }
 
@@ -93,13 +115,18 @@ document.addEventListener('DOMContentLoaded', function() {
         movePlayer(event.key);
     });
 
-    // Adding touch event listeners
-    document.getElementById('up').addEventListener('click', () => movePlayer('ArrowUp'));
-    document.getElementById('down').addEventListener('click', () => movePlayer('ArrowDown'));
-    document.getElementById('left').addEventListener('click', () => movePlayer('ArrowLeft'));
-    document.getElementById('right').addEventListener('click', () => movePlayer('ArrowRight'));
-    
-
+      // Adding touch event listeners here
+      const buttons = ['up', 'down', 'left', 'right'];
+      const directions = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+  
+      buttons.forEach((id, index) => {
+        const button = document.getElementById(id);
+        button.addEventListener('mousedown', () => startMoving(directions[index]));
+        button.addEventListener('mouseup', stopMoving);
+        button.addEventListener('mouseleave', stopMoving); // Stop moving if the cursor leaves the button while pressed
+        button.addEventListener('touchstart', () => startMoving(directions[index]), {passive: true});
+        button.addEventListener('touchend', stopMoving);
+    });
     // Start the game loop
     drawGame();
 });
