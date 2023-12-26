@@ -67,17 +67,16 @@ document.addEventListener('DOMContentLoaded', function() {
         return maze[row][col] === 0;
     }
 
-    // Handle keyboard input for player movement
-    document.addEventListener('keydown', function(event) {
+    // Unified movement function for both keyboard and touch controls
+    function movePlayer(direction) {
         let newX = player.x;
         let newY = player.y;
 
-        switch(event.key) {
+        switch(direction) {
             case 'ArrowUp': newY -= player.speed; break;
             case 'ArrowDown': newY += player.speed; break;
             case 'ArrowLeft': newX -= player.speed; break;
             case 'ArrowRight': newX += player.speed; break;
-            default: return; // exit this handler for other keys
         }
 
         // Check if the new position is within an open space
@@ -85,7 +84,19 @@ document.addEventListener('DOMContentLoaded', function() {
             player.x = newX;
             player.y = newY;
         }
+    }
+
+    // Handle keyboard input for player movement
+    document.addEventListener('keydown', function(event) {
+        movePlayer(event.key);
     });
+
+    // Adding touch event listeners
+    document.getElementById('up').addEventListener('click', () => movePlayer('ArrowUp'));
+    document.getElementById('down').addEventListener('click', () => movePlayer('ArrowDown'));
+    document.getElementById('left').addEventListener('click', () => movePlayer('ArrowLeft'));
+    document.getElementById('right').addEventListener('click', () => movePlayer('ArrowRight'));
+    
 
     // Start the game loop
     drawGame();
