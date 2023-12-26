@@ -11,9 +11,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const player = {
         x: 50,
         y: 50,
-        width: 20,
-        height: 20,
-        speed: 25
+        width: 15,
+        height: 15,
+        speed: 15
     };
 
     // Define the maze structure
