@@ -83,6 +83,3 @@ document.addEventListener('keydown', function(event) {
 
 // Start the game loop
 drawGame();
-
-
-
