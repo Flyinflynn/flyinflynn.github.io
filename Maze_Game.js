@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Ensure canvas size is set appropriately in the HTML or here
     canvas.width = 600; // Adjust as necessary
-    canvas.height = 400; // Adjust as necessary
+    canvas.height = 450; // Adjust as necessary
 
     // Define the player icon
     const player = {
@@ -16,22 +16,27 @@ document.addEventListener('DOMContentLoaded', function() {
         speed: 15
     };
 
-    
+    let isGameOver = false;
     
     // Define the maze structure
     const maze = [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1],
+        [1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        // ... more rows of the maze ...
-        [1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+ 
+        
     ];
 
     const tileSize = 30; // Size of each tile in the maze
@@ -39,8 +44,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     /// Define the finish point
     const finishPoint = {
-        x: 3 * tileSize,  // x-coordinate of the finish point (2ndcolumn)
-        y: 4 * tileSize // y-coordinate of the finish point (2nd row)
+        x: 5 * tileSize,  // x-coordinate of the finish point (2ndcolumn)
+        y: 13 * tileSize // y-coordinate of the finish point (2nd row)
     };
     
     // Draw the game
@@ -61,13 +66,19 @@ document.addEventListener('DOMContentLoaded', function() {
     function drawMaze() {
         for (let row = 0; row < maze.length; row++) {
             for (let col = 0; col < maze[0].length; col++) {
+                // Determine the color of the tile
                 if (maze[row][col] === 1) {
-                    ctx.fillStyle = 'black';
-                    ctx.fillRect(col * tileSize, row * tileSize, tileSize, tileSize);
+                    ctx.fillStyle = 'black'; // Wall
+                } else if (col * tileSize === finishPoint.x && row * tileSize === finishPoint.y) {
+                    ctx.fillStyle = 'green'; // Finish Point
+                } else {
+                    ctx.fillStyle = 'white'; // Open space
                 }
+                ctx.fillRect(col * tileSize, row * tileSize, tileSize, tileSize);
             }
         }
     }
+
     let movingDirection = null;
     let isMoving = false;
 
@@ -125,9 +136,18 @@ document.addEventListener('DOMContentLoaded', function() {
             player.y = newY;
         }
     
+        
         // Check for completion after updating position
         checkCompletion();
     }
+    function checkCompletion() {
+        if (!isGameOver && Math.abs(player.x - finishPoint.x) < player.width && Math.abs(player.y - finishPoint.y) < player.height) {
+            displayCompletionMessage();
+            isGameOver = true; // Set the game over flag
+        }
+    }
+
+
     
     function displayCompletionMessage() {
         // Display the completion message above the canvas
@@ -159,6 +179,19 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('touchstart', () => startMoving(directions[index]), {passive: true});
         button.addEventListener('touchend', stopMoving);
     });
+    function startMoving(direction) {
+        if (!isMoving && !isGameOver) {
+            isMoving = true;
+            movingDirection = direction;
+            continueMoving();
+        } 
+    }
+    
+    function stopMoving() {
+        if (!isGameOver) {
+            isMoving = false;
+        }
+    }
     // Start the game loop
     drawGame();
 });
