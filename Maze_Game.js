@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Ensure canvas size is set appropriately in the HTML or here
     canvas.width = 600; // Adjust as necessary
-    canvas.height = 600; // Adjust as necessary
+    canvas.height = 400; // Adjust as necessary
 
     // Define the player icon
     const player = {
@@ -13,16 +13,18 @@ document.addEventListener('DOMContentLoaded', function() {
         y: 50,
         width: 15,
         height: 15,
-        speed: 3
+        speed: 15
     };
 
+    
+    
     // Define the maze structure
     const maze = [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -34,6 +36,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const tileSize = 30; // Size of each tile in the maze
 
+
+    /// Define the finish point
+    const finishPoint = {
+        x: 3 * tileSize,  // x-coordinate of the finish point (2ndcolumn)
+        y: 4 * tileSize // y-coordinate of the finish point (2nd row)
+    };
+    
     // Draw the game
     function drawGame() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -90,26 +99,49 @@ document.addEventListener('DOMContentLoaded', function() {
         return maze[row][col] === 0;
     }
 
-    // Unified movement function for both keyboard and touch controls
+
+    function checkCompletion() {
+        // Check if the player's position overlaps or is very close to the finish point
+        if (Math.abs(player.x - finishPoint.x) < player.width && Math.abs(player.y - finishPoint.y) < player.height) {
+            displayCompletionMessage();
+        }
+    }
+    
+    
     function movePlayer(direction) {
         let newX = player.x;
         let newY = player.y;
-        let moveDistance = player.speed * 1; // Move twice the distance
-
+        
         switch(direction) {
             case 'ArrowUp': newY -= player.speed; break;
             case 'ArrowDown': newY += player.speed; break;
             case 'ArrowLeft': newX -= player.speed; break;
             case 'ArrowRight': newX += player.speed; break;
         }
-
+    
         // Check if the new position is within an open space
         if (canMove(newX, newY)) {
             player.x = newX;
             player.y = newY;
         }
+    
+        // Check for completion after updating position
+        checkCompletion();
     }
-
+    
+    function displayCompletionMessage() {
+        // Display the completion message above the canvas
+        const messageElement = document.createElement('div');
+        messageElement.textContent = "Finish! Maze Complete!";
+        messageElement.style.textAlign = 'center';
+        messageElement.style.fontSize = '24px';
+        messageElement.style.fontWeight = 'bold';
+        messageElement.style.marginBottom = '20px';
+        document.body.insertBefore(messageElement, document.body.firstChild);
+    
+        // Stop the game or prevent further movement
+        isMoving = false;
+    }
     // Handle keyboard input for player movement
     document.addEventListener('keydown', function(event) {
         movePlayer(event.key);
