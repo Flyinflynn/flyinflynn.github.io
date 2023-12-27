@@ -3,20 +3,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
 
+
+
+
+    let startTime = null; // Start time
+    let isGameOver = false;
+
+
     // Ensure canvas size is set appropriately in the HTML or here
     canvas.width = 600; // Adjust as necessary
     canvas.height = 450; // Adjust as necessary
 
     // Define the player icon
     const player = {
-        x: 50,
-        y: 50,
+        x: 40,
+        y: 37,
         width: 15,
         height: 15,
         speed: 15
     };
 
-    let isGameOver = false;
+
     
     // Define the maze structure
     const maze = [
@@ -47,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
         x: 5 * tileSize,  // x-coordinate of the finish point (2ndcolumn)
         y: 13 * tileSize // y-coordinate of the finish point (2nd row)
     };
-    
+
     // Draw the game
     function drawGame() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -85,7 +92,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Define the startMoving, continueMoving, and stopMoving functions here
     function startMoving(direction) {
-        if (!isMoving) {
+        if (!isMoving && !isGameOver) {
+            if (startTime === null) {
+                startTime = Date.now();
+            }
             isMoving = true;
             movingDirection = direction;
             continueMoving();
@@ -104,6 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // ... implementation ...
         isMoving = false;
     }
+
     // Check if a move is allowed
     function canMove(x, y) {
         const col = Math.floor(x / tileSize);
@@ -111,16 +122,17 @@ document.addEventListener('DOMContentLoaded', function() {
         return maze[row][col] === 0;
     }
 
-
     function checkCompletion() {
-        // Check if the player's position overlaps or is very close to the finish point
-        if (Math.abs(player.x - finishPoint.x) < player.width && Math.abs(player.y - finishPoint.y) < player.height) {
+        if (!isGameOver && Math.abs(player.x - finishPoint.x) < player.width && Math.abs(player.y - finishPoint.y) < player.height) {
             displayCompletionMessage();
+            isGameOver = true;
         }
     }
-    
-    
+
     function movePlayer(direction) {
+        if (startTime === null && !isGameOver) {
+            startTime = Date.now();
+        }
         let newX = player.x;
         let newY = player.y;
         
@@ -130,37 +142,30 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'ArrowLeft': newX -= player.speed; break;
             case 'ArrowRight': newX += player.speed; break;
         }
-    
+
         // Check if the new position is within an open space
         if (canMove(newX, newY)) {
             player.x = newX;
             player.y = newY;
         }
-    
-        
+
         // Check for completion after updating position
         checkCompletion();
     }
-    function checkCompletion() {
-        if (!isGameOver && Math.abs(player.x - finishPoint.x) < player.width && Math.abs(player.y - finishPoint.y) < player.height) {
-            displayCompletionMessage();
-            isGameOver = true; // Set the game over flag
-        }
-    }
 
-
-    
     function displayCompletionMessage() {
-        // Display the completion message above the canvas
+        const endTime = Date.now(); // Get the end time
+        const timeTaken = (endTime - startTime) / 1000; // Calculate the time taken in seconds
+
+        // Display the completion message with time taken
         const messageElement = document.createElement('div');
-        messageElement.textContent = "Finish! Maze Complete!";
+        messageElement.textContent = "Finish! Maze Complete! Time taken: " + timeTaken.toFixed(2) + " seconds";
         messageElement.style.textAlign = 'center';
         messageElement.style.fontSize = '24px';
         messageElement.style.fontWeight = 'bold';
         messageElement.style.marginBottom = '20px';
         document.body.insertBefore(messageElement, document.body.firstChild);
-    
-        // Stop the game or prevent further movement
+
         isMoving = false;
     }
     // Handle keyboard input for player movement
@@ -180,18 +185,31 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('touchstart', () => startMoving(directions[index]), {passive: true});
         button.addEventListener('touchend', stopMoving);
     });
-    function startMoving(direction) {
+   function startMoving(direction) {
         if (!isMoving && !isGameOver) {
+            if (startTime === null) { // Start the timer on first move
+                startTime = Date.now();
+            }
             isMoving = true;
             movingDirection = direction;
             continueMoving();
         } 
     }
-    
-    function stopMoving() {
-        if (!isGameOver) {
-            isMoving = false;
-        }
+
+    function displayCompletionMessage() {
+        const endTime = Date.now(); // Get the end time
+        const timeTaken = (endTime - startTime) / 1000; // Calculate the time taken in seconds
+
+        // Display the completion message with time taken
+        const messageElement = document.createElement('div');
+        messageElement.textContent = "Finish! Maze Complete! Time taken: " + timeTaken.toFixed(2) + " seconds";
+        messageElement.style.textAlign = 'center';
+        messageElement.style.fontSize = '24px';
+        messageElement.style.fontWeight = 'bold';
+        messageElement.style.marginBottom = '20px';
+        document.body.insertBefore(messageElement, document.body.firstChild);
+
+        isMoving = false;
     }
     // Start the game loop
     drawGame();
