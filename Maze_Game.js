@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
         [1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
  
         
@@ -69,8 +69,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Determine the color of the tile
                 if (maze[row][col] === 1) {
                     ctx.fillStyle = 'black'; // Wall
-                } else if (col * tileSize === finishPoint.x && row * tileSize === finishPoint.y) {
-                    ctx.fillStyle = 'green'; // Finish Point
+                } else if ((col * tileSize === finishPoint.x && row * tileSize === finishPoint.y) ||
+                           (col * tileSize === finishPoint.x - tileSize && row * tileSize === finishPoint.y)) {
+                    ctx.fillStyle = 'green'; // Finish Point and tile to the left
                 } else {
                     ctx.fillStyle = 'white'; // Open space
                 }
