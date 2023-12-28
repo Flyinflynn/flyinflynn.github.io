@@ -3,12 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
 
-
-
-
     let startTime = null; // Start time
     let isGameOver = false;
-
 
     // Ensure canvas size is set appropriately in the HTML or here
     canvas.width = 600; // Adjust as necessary
@@ -23,8 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
         speed: 15
     };
 
-
-    
     // Define the maze structure
     const maze = [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -42,17 +36,20 @@ document.addEventListener('DOMContentLoaded', function() {
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
- 
-        
     ];
 
     const tileSize = 30; // Size of each tile in the maze
-
 
     /// Define the finish point
     const finishPoint = {
         x: 5 * tileSize,  // x-coordinate of the finish point (2ndcolumn)
         y: 13 * tileSize // y-coordinate of the finish point (2nd row)
+    };
+
+    // Define the failure point
+    const failurePoint = {            
+        x: 15 * tileSize,  // Example: x-coordinate of the failure point   
+        y: 3 * tileSize   // Example: y-coordinate of the failure point
     };
 
     // Draw the game
@@ -79,6 +76,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else if ((col * tileSize === finishPoint.x && row * tileSize === finishPoint.y) ||
                            (col * tileSize === finishPoint.x - tileSize && row * tileSize === finishPoint.y)) {
                     ctx.fillStyle = 'green'; // Finish Point and tile to the left
+                } else if (col * tileSize === failurePoint.x && row * tileSize === failurePoint.y) {
+                    ctx.fillStyle = 'red'; // Failure Point
                 } else {
                     ctx.fillStyle = 'white'; // Open space
                 }
@@ -96,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (startTime === null) {
                 startTime = Date.now();
             }
+            
             isMoving = true;
             movingDirection = direction;
             continueMoving();
@@ -129,6 +129,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    function checkFailure() {
+        if (!isGameOver && Math.abs(player.x - failurePoint.x) < player.width && Math.abs(player.y - failurePoint.y) < player.height) {
+            displayFailureMessage();
+            isGameOver = true;
+        }
+    }
+
     function movePlayer(direction) {
         if (startTime === null && !isGameOver) {
             startTime = Date.now();
@@ -142,15 +149,16 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'ArrowLeft': newX -= player.speed; break;
             case 'ArrowRight': newX += player.speed; break;
         }
-
+    
         // Check if the new position is within an open space
         if (canMove(newX, newY)) {
             player.x = newX;
             player.y = newY;
         }
-
-        // Check for completion after updating position
+    
+        // Check for completion and failure after updating position
         checkCompletion();
+        checkFailure(); // Added call to checkFailure() function
     }
 
     function displayCompletionMessage() {
@@ -168,16 +176,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
         isMoving = false;
     }
+
+    function displayFailureMessage() {
+        const messageElement = document.createElement('div');
+        messageElement.textContent = "Game Over! You've hit the failure point!";
+        messageElement.style.textAlign = 'center';
+        messageElement.style.fontSize = '24px';
+        messageElement.style.fontWeight = 'bold';
+        messageElement.style.marginBottom = '20px';
+        document.body.insertBefore(messageElement, document.body.firstChild);
+    
+        isMoving = false;
+    }
+
     // Handle keyboard input for player movement
     document.addEventListener('keydown', function(event) {
         movePlayer(event.key);
     });
 
-      // Adding touch event listeners here
-      const buttons = ['up', 'down', 'left', 'right'];
-      const directions = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
-  
-      buttons.forEach((id, index) => {
+    // Adding touch event listeners here
+    const buttons = ['up', 'down', 'left', 'right'];
+    const directions = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+
+    buttons.forEach((id, index) => {
         const button = document.getElementById(id);
         button.addEventListener('mousedown', () => startMoving(directions[index]));
         button.addEventListener('mouseup', stopMoving);
@@ -185,7 +206,8 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('touchstart', () => startMoving(directions[index]), {passive: true});
         button.addEventListener('touchend', stopMoving);
     });
-   function startMoving(direction) {
+
+    function startMoving(direction) {
         if (!isMoving && !isGameOver) {
             if (startTime === null) { // Start the timer on first move
                 startTime = Date.now();
@@ -196,21 +218,6 @@ document.addEventListener('DOMContentLoaded', function() {
         } 
     }
 
-    function displayCompletionMessage() {
-        const endTime = Date.now(); // Get the end time
-        const timeTaken = (endTime - startTime) / 1000; // Calculate the time taken in seconds
-
-        // Display the completion message with time taken
-        const messageElement = document.createElement('div');
-        messageElement.textContent = "Finish! Maze Complete! Time taken: " + timeTaken.toFixed(2) + " seconds";
-        messageElement.style.textAlign = 'center';
-        messageElement.style.fontSize = '24px';
-        messageElement.style.fontWeight = 'bold';
-        messageElement.style.marginBottom = '20px';
-        document.body.insertBefore(messageElement, document.body.firstChild);
-
-        isMoving = false;
-    }
     // Start the game loop
     drawGame();
 });
