@@ -77,8 +77,29 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    document.getElementById('up').addEventListener('click', () => movePlayer(0, -1));
-    document.getElementById('down').addEventListener('click', () => movePlayer(0, 1));
-    document.getElementById('left').addEventListener('click', () => movePlayer(-1, 0));
-    document.getElementById('right').addEventListener('click', () => movePlayer(1, 0));
+    document.querySelectorAll('#controls button').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const btnId = e.target.id;
+            switch(btnId) {
+                case 'up': movePlayer(0, -1); break;
+                case 'down': movePlayer(0, 1); break;
+                case 'left': movePlayer(-1, 0); break;
+                case 'right': movePlayer(1, 0); break;
+            }
+        });
+
+        // Prevent double-tap zoom on mobile devices
+        preventDoubleTapZoom(button);
+    });
+
+    function preventDoubleTapZoom(element) {
+        let lastTouchEnd = 0;
+        element.addEventListener('touchend', function(event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    }
 });
