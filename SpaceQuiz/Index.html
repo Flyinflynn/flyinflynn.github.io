@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Explorer Trivia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="welcome-screen">
+            <h1>Welcome to Space Explorer Trivia!</h1>
+            <button id="start-button">Start Game</button>
+        </div>
+        <div id="trivia-screen" class="hidden">
+            <img id="space-image" src="" alt="Space Image of the Day">
+            <div id="question"></div>
+            <div id="options-container"></div>
+            <button id="next-button" class="hidden">Next</button>
+        </div>
+        <div id="score-screen" class="hidden">
+            <h2>Your Score:</h2>
+            <div id="score"></div>
+            <button id="restart-button">Play Again</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
