@@ -5,13 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Card options
     const cardArray = [
         { name: 'apple', img: 'flyinflynn.github.io/MemoryMatchGame/Images/apple.png' },
-        { name: 'banana', img: 'images/banana.png' },
-        { name: 'orange', img: 'images/orange.png' },
-        { name: 'watermelon', img: 'images/watermelon.png' },
-        { name: 'apple', img: 'images/apple.png' },
-        { name: 'banana', img: 'images/banana.png' },
-        { name: 'orange', img: 'images/orange.png' },
-        { name: 'watermelon', img: 'images/watermelon.png' },
+        { name: 'banana', img: 'flyinflynn.github.io/MemoryMatchGame/Images/banana.png' },
+        { name: 'orange', img: 'flyinflynn.github.io/MemoryMatchGame/Images/orange.png' },
+        { name: 'watermelon', img: 'flyinflynn.github.io/MemoryMatchGame/Images/watermelon.png' },
+        { name: 'apple', img: 'flyinflynn.github.io/MemoryMatchGame/Images/apple.png' },
+        { name: 'banana', img: 'flyinflynn.github.io/MemoryMatchGame/Images/banana.png' },
+        { name: 'orange', img: 'flyinflynn.github.io/MemoryMatchGame/Images/orange.png' },
+        { name: 'watermelon', img: 'flyinflynn.github.io/MemoryMatchGame/Images/watermelon.png' },
         // Add more card pairs
     ];
 
