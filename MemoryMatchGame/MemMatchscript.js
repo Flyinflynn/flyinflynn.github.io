@@ -4,14 +4,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Card options
     const cardArray = [
-        { name: 'apple', img: 'flyinflynn.github.io/MemoryMatchGame/Images/apple.png' },
-        { name: 'banana', img: 'flyinflynn.github.io/MemoryMatchGame/Images/banana.png' },
-        { name: 'orange', img: 'flyinflynn.github.io/MemoryMatchGame/Images/orange.png' },
-        { name: 'watermelon', img: 'flyinflynn.github.io/MemoryMatchGame/Images/watermelon.png' },
-        { name: 'apple', img: 'flyinflynn.github.io/MemoryMatchGame/Images/apple.png' },
-        { name: 'banana', img: 'flyinflynn.github.io/MemoryMatchGame/Images/banana.png' },
-        { name: 'orange', img: 'flyinflynn.github.io/MemoryMatchGame/Images/orange.png' },
-        { name: 'watermelon', img: 'flyinflynn.github.io/MemoryMatchGame/Images/watermelon.png' },
+        { name: 'apple', img: 'https://flyinflynn.github.io/MemoryMatchGame/Images/apple.png' },
+        { name: 'banana', img: 'https://flyinflynn.github.io/MemoryMatchGame/Images/banana.png' },
+        { name: 'orange', img: 'https://flyinflynn.github.io/MemoryMatchGame/Images/orange.png' },
+        { name: 'watermelon', img: 'https://flyinflynn.github.io/MemoryMatchGame/Images/watermelon.png' },
+        { name: 'apple', img: 'https://flyinflynn.github.io/MemoryMatchGame/Images/apple.png' },
+        { name: 'banana', img: 'https://flyinflynn.github.io/MemoryMatchGame/Images/banana.png' },
+        { name: 'orange', img: 'https://flyinflynn.github.io/MemoryMatchGame/Images/orange.png' },
+        { name: 'watermelon', img: 'https://flyinflynn.github.io/MemoryMatchGame/Images/watermelon.png' },
         // Add more card pairs
     ];
 
@@ -44,12 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('You have clicked the same image!');
         } else if (cardsChosen[0] === cardsChosen[1]) {
             alert('You found a match');
-            cards[optionOneId].setAttribute('src', 'flyinflynn.github.io/MemoryMatchGame/Images/white.png');
-            cards[optionTwoId].setAttribute('src', 'flyinflynn.github.io/MemoryMatchGame/Images/white.png');
+            cards[optionOneId].setAttribute('src', 'https://flyinflynn.github.io/MemoryMatchGame/Images/white.png');
+            cards[optionTwoId].setAttribute('src', 'https://flyinflynn.github.io/MemoryMatchGame/Images/white.png');
             cardsWon.push(cardsChosen);
         } else {
-            cards[optionOneId].setAttribute('src', 'flyinflynn.github.io/MemoryMatchGame/Images/blank.png');
-            cards[optionTwoId].setAttribute('src', 'flyinflynn.github.io/MemoryMatchGame/Images/blank.png');
+            cards[optionOneId].setAttribute('src', 'https://flyinflynn.github.io/MemoryMatchGame/Images/blank.png');
+            cards[optionTwoId].setAttribute('src', 'https://flyinflynn.github.io/MemoryMatchGame/Images/blank.png');
             alert('Sorry, try again');
         }
 
