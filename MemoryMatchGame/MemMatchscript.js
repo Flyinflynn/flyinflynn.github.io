@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Card options
     const cardArray = [
-        { name: 'apple', img: 'images/apple.png' },
+        { name: 'apple', img: 'flyinflynn.github.io/MemoryMatchGame/Images/apple.png' },
         { name: 'banana', img: 'images/banana.png' },
         { name: 'orange', img: 'images/orange.png' },
         { name: 'watermelon', img: 'images/watermelon.png' },
