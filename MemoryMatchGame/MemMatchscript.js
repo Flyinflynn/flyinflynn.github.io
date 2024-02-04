@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createBoard() {
         for (let i = 0; i < cardArray.length; i++) {
             let card = document.createElement('img');
-            card.setAttribute('src', 'flyinflynn.github.io/MemoryMatchGame/Images/blank.png');
+            card.setAttribute('src', 'https://flyinflynn.github.io/MemoryMatchGame/Images/blank.png');
             card.setAttribute('data-id', i);
             card.addEventListener('click', flipCard);
             grid.appendChild(card);
