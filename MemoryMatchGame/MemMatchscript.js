@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function createBoard() {
         for (let i = 0; i < cardArray.length; i++) {
             let card = document.createElement('img');
-            card.setAttribute('src', 'images/blank.png');
+            card.setAttribute('src', 'flyinflynn.github.io/MemoryMatchGame/Images/blank.png');
             card.setAttribute('data-id', i);
             card.addEventListener('click', flipCard);
             grid.appendChild(card);
@@ -44,12 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('You have clicked the same image!');
         } else if (cardsChosen[0] === cardsChosen[1]) {
             alert('You found a match');
-            cards[optionOneId].setAttribute('src', 'images/white.png');
-            cards[optionTwoId].setAttribute('src', 'images/white.png');
+            cards[optionOneId].setAttribute('src', 'flyinflynn.github.io/MemoryMatchGame/Images/white.png');
+            cards[optionTwoId].setAttribute('src', 'flyinflynn.github.io/MemoryMatchGame/Images/white.png');
             cardsWon.push(cardsChosen);
         } else {
-            cards[optionOneId].setAttribute('src', 'images/blank.png');
-            cards[optionTwoId].setAttribute('src', 'images/blank.png');
+            cards[optionOneId].setAttribute('src', 'flyinflynn.github.io/MemoryMatchGame/Images/blank.png');
+            cards[optionTwoId].setAttribute('src', 'flyinflynn.github.io/MemoryMatchGame/Images/blank.png');
             alert('Sorry, try again');
         }
 
