@@ -1,58 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-H1ZC9CG95S"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-H1ZC9CG95S');
-</script>
-    <title>Connor's Website</title>
-    <style>
-        body {
-            text-align: center; /* Centers the text */
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; /* Full height of the viewport */
-            font-family: Menlo , monospace; /* Optional: sets a default font */
-            background-color: antiquewhite;
-        }
-        .container {
-            max-width: 800px; /* Adjusts the max width of the content */
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze Game</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1 style="font-size: 5em;margin-bottom: 0;">Welcome to Connor’s Website</h1>
-        <p style="color: green; font-style: italic;">If you are reading this, a major milestone has been achieved!</p>
-        <h2 style="font-size: 3em; margin-bottom: 0; margin-top: 1">My Mission</h2>
-        <p>Learn how to create, develop, and share cool, fun, and useful applications.</p>
-        <div class="container">
-           <p>----------------------------------</p>
-            <h3 style="font-size: 1.3em; margin-bottom: 0 ;margin-top: 0">Active Now!</h3>
-            <div style="text-align: left; margin: 0 auto; max-width: 800px;">
-                <ul>
-                    <li><a href="dontdrop.html">Hot Lava</a>: Prevent the ball from falling- you have 3 lives</li>
-                    <li><a href="flyinflynn.github.io/MemoryMatchGame/MemMatchIndex.html">Memory Match</a>: find all matching pairs of cards</li>
-                    <li><a href="spacequiz.html">Space Quiz</a>: Enable NASA's Image of the Day API for a simple quiz game</li>
-                </ul>
-            </div>
-            <h3 style="font-size: 1.3em; margin-bottom: 0 ;margin-top: 0">Coming Soon!</h3>
-            <div style="text-align: left; margin: 0 auto; max-width: 800px;">
-                <ul>
-                    <li>Calculator Application: Enter data to return calcualted results!!!!!</li>
-                    <li>Maze Game: Move a character around a maze to find the finish</li>
-                </ul>
-            </div>
-            <p style="margin-top: 40px;">Stay tuned for more details and updates as I move forward on this Journey!</p>
-        </div>
-    
+    <h1>Maze Game</h1>
+    <canvas id="mazeCanvas" width="400" height="400"></canvas>
+    <div>
+        <button onclick="move('up')">Up</button>
+        <button onclick="move('down')">Down</button>
+        <button onclick="move('left')">Left</button>
+        <button onclick="move('right')">Right</button>
+    </div>
+    <p id="message"></p>
+    <script src="script.js"></script>
 </body>
 </html>
