@@ -3,19 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maze Game</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Welcome to Connor's Website</title>
+    <style>
+        body {
+            font-family: "Courier New", Courier, monospace;
+            line-height: 1.6;
+            color: #2F4F4F;
+            background-color: #F0F8FF;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            border-bottom: 2px solid #4682B4;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #4682B4;
+        }
+        nav {
+            margin-bottom: 20px;
+        }
+        nav a {
+            color: #4682B4;
+            text-decoration: none;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            background-color: #FFFFFF;
+            border: 1px solid #4682B4;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        footer {
+            text-align: center;
+            font-size: 0.8em;
+            color: #708090;
+        }
+        #pixelArt {
+            border: 1px solid #4682B4;
+            cursor: crosshair;
+        }
+        #chatbot {
+            border: 1px solid #4682B4;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        #chatInput {
+            width: 80%;
+            padding: 5px;
+        }
+        #sendChat {
+            width: 18%;
+            padding: 5px;
+        }
+        #chatHistory {
+            height: 150px;
+            overflow-y: scroll;
+            border: 1px solid #4682B4;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .game-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #guessInput {
+            width: 50px;
+        }
+        #aboutPage {
+            display: none;
+        }
+        .about-section {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Maze Game</h1>
-    <canvas id="mazeCanvas" width="400" height="400"></canvas>
-    <div>
-        <button onclick="move('up')">Up</button>
-        <button onclick="move('down')">Down</button>
-        <button onclick="move('left')">Left</button>
-        <button onclick="move('right')">Right</button>
+    <header>
+        <h1>Welcome to Connor's Website</h1>
+        <p>A showcase of my growing knowledge of computers</p>
+    </header>
+    
+    <nav>
+        <a onclick="showHome()">Home</a> |
+        <a onclick="showAbout()">About</a> |
+        <a onclick="showHome()">Services</a> |
+        <a onclick="showHome()">Contact</a>
+    </nav>
+    
+    <div id="homePage" class="content">
+        <h2>Greetings!</h2>
+        <p>Welcome to Connor's Website, where I hope to share my learnings and progress in computers, programing, and anything else I find interesting.</p>
+        
+        <h3>Interactive Pixel Art Creator</h3>
+        <canvas id="pixelArt" width="200" height="200"></canvas>
+        <br>
+        <button onclick="clearCanvas()">Clear Canvas</button>
+        
+        <h3>Retro Number Guessing Game</h3>
+        <div class="game-container">
+            <p>Guess a number between 1 and 100:</p>
+            <input type="number" id="guessInput" min="1" max="100">
+            <button onclick="checkGuess()">Guess</button>
+            <p id="guessResult"></p>
+        </div>
+        
+        <h3>AI Chatbot: Ask about the Early Internet!</h3>
+        <div id="chatbot">
+            <div id="chatHistory"></div>
+            <input type="text" id="chatInput" placeholder="Ask me anything about the early internet...">
+            <button id="sendChat">Send</button>
+        </div>
     </div>
-    <p id="message"></p>
-    <script src="script.js"></script>
+
+    <div id="aboutPage" class="content">
+        <h2>About Connor's Website</h2>
+        
+        <div class="about-section">
+            <h3>Our Mission</h3>
+            <p> I have always been fascinated by computers and software. However,I realized that I have no idea how any of the things I use actually work or how they were developed. I am setting small and fun goals that will force myself to become familiar with the basics surrounding computers, coding, programming, and the internet. I will be doing this simply for the fun of learning and do not set any grand expectations on the things that i build or share. Nonetheless, I think the fact you are reading this right now on something i developed is cool enough. Stay tuned for upates as I continue to changethe look and feel of this site and add more content as my capabilities grow! </p>
+        </div>
+        
+        <div class="about-section">
+            <h3>Section Hold</h3>
+            <ul>
+                <li>Hold</li>
+                <li>Hold</li>
+                <li>Hold</li>
+                <li>Hold</li>
+            </ul>
+        </div>
+        
+        <div class="about-section">
+            <h3>Hold/h3>
+            <p>Hold</p>
+        </div>
+        
+        <div class="about-section">
+            <h3>Contact Us</h3>
+            <p>Have questions or want to contribute? Reach out at:</p>
+            <p>Email: (hold) </p>
+            <p>(hold)</p>
+        </div>
+    </div>
+    
+    <footer>
+        &copy; 2024 Connor's Wesbite | Last updated: August 11, 2024 | <a href="#Connor Rocks!!">Connor Rocks</a>
+    </footer>
+
+    <script>
+        // Pixel Art Creator
+        const canvas = document.getElementById('pixelArt');
+        const ctx = canvas.getContext('2d');
+        const pixelSize = 10;
+        
+        canvas.addEventListener('click', function(event) {
+            const rect = canvas.getBoundingClientRect();
+            const x = Math.floor((event.clientX - rect.left) / pixelSize) * pixelSize;
+            const y = Math.floor((event.clientY - rect.top) / pixelSize) * pixelSize;
+            
+            ctx.fillStyle = `rgb(${Math.random()*255},${Math.random()*255},${Math.random()*255})`;
+            ctx.fillRect(x, y, pixelSize, pixelSize);
+        });
+        
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+        
+        // Number Guessing Game
+        let secretNumber = Math.floor(Math.random() * 100) + 1;
+        
+        function checkGuess() {
+            const guess = document.getElementById('guessInput').value;
+            const result = document.getElementById('guessResult');
+            
+            if (guess == secretNumber) {
+                result.textContent = "Congratulations! You guessed it!";
+                secretNumber = Math.floor(Math.random() * 100) + 1;
+            } else if (guess < secretNumber) {
+                result.textContent = "Too low. Try again!";
+            } else {
+                result.textContent = "Too high. Try again!";
+            }
+        }
+        
+
+        // Page Navigation
+        function showHome() {
+            document.getElementById('homePage').style.display = 'block';
+            document.getElementById('aboutPage').style.display = 'none';
+        }
+
+        function showAbout() {
+            document.getElementById('homePage').style.display = 'none';
+            document.getElementById('aboutPage').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
