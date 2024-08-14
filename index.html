@@ -57,7 +57,7 @@
         #guessInput {
             width: 50px;
         }
-        #aboutPage, #servicesPage {
+        #aboutPage, #GamePage {
             display: none;
         }
         .about-section {
@@ -83,7 +83,7 @@
     <nav>
         <a onclick="showHome()">Home</a> |
         <a onclick="showAbout()">About</a> |
-        <a onclick="showServices()">Services</a> |
+        <a onclick="showGame()">Game</a> |
         <a onclick="showHome()">Contact</a>
     </nav>
     
@@ -131,8 +131,8 @@
         </div>
     </div>
 
-    <div id="servicesPage" class="content">
-        <h2>Services - Target Tapping Game</h2>
+    <div id="GamePage" class="content">
+        <h2>Game - Target Tapping Game</h2>
         <p></p>
         <div id="gameRoot"></div>
     </div>
@@ -181,19 +181,19 @@
         function showHome() {
             document.getElementById('homePage').style.display = 'block';
             document.getElementById('aboutPage').style.display = 'none';
-            document.getElementById('servicesPage').style.display = 'none';
+            document.getElementById('GamePage').style.display = 'none';
         }
 
         function showAbout() {
             document.getElementById('homePage').style.display = 'none';
             document.getElementById('aboutPage').style.display = 'block';
-            document.getElementById('servicesPage').style.display = 'none';
+            document.getElementById('GamePage').style.display = 'none';
         }
 
-        function showServices() {
+        function showGame() {
             document.getElementById('homePage').style.display = 'none';
             document.getElementById('aboutPage').style.display = 'none';
-            document.getElementById('servicesPage').style.display = 'block';
+            document.getElementById('GamePage').style.display = 'block';
         }
     </script>
 
